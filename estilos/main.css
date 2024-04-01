@@ -2,17 +2,40 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    cursor: url(https://cur.cursors-4u.net/games/gam-14/gam1340.cur), auto !important;
 }
 
+/*https://brand.riotgames.com/es-mx/league-of-legends/color colores*/
 body {
     background-image: url(../img/wallpp.jpg);
 
     background-repeat: no-repeat;
 
 
-
 }
 
+.h1 {
+    text-align: center !important;
+}
+
+.conh1 {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    text-shadow: 1px 7px 6px rgba(0, 0, 0, 0.6);
+    font-weight: 900 !important;
+font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+color: #1E282D;
+}
+
+.star {
+    font-size: 24px;
+    color: #ccc;
+}
+
+.star.active {
+    color: #ffbf00;
+}
 
 .contedor-form {
     display: grid;
@@ -27,11 +50,21 @@ body {
 
     position: relative;
     top: 90px;
-    background-color: #82a3dae0;
+    background-color: #010a13c2;
     width: 100%;
     height: 130px;
+
     display: flex;
     justify-content: center;
+}
+
+.swal2-popup {
+    background-color: #F0E6D2;
+}
+
+#boton {
+    background-color: rgb(163, 146, 146) !important;
+
 }
 
 #texto {
@@ -40,6 +73,45 @@ body {
     border-radius: 20px;
     height: 30px;
     text-align: center;
+}
+
+.input {
+    max-width: 190px;
+    background-color: #CDFAFA;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    outline: none;
+    color: #C89B3C;
+    font-size: 1.3rem;
+    font-weight: 900;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.input:focus {
+    animation: rotateShadow 2s infinite linear;
+}
+
+@keyframes rotateShadow {
+    0% {
+        box-shadow: -2px -2px 0px 0px #005A82, 2px 2px 0px 0px #0AC8B9;
+    }
+
+    25% {
+        box-shadow: -2px 2px 0px 0px #005A82, 2px -2px 0px 0px #0AC8B9;
+    }
+
+    50% {
+        box-shadow: 2px 2px 0px 0px #005A82, -2px -2px 0px 0px #0AC8B9;
+    }
+
+    75% {
+        box-shadow: 2px -2px 0px 0px #005A82, -2px 2px 0px 0px #0AC8B9;
+    }
+
+    100% {
+        box-shadow: -2px -2px 0px 0px #005A82, 2px 2px 0px 0px #0AC8B9;
+    }
 }
 
 /* Media Query para celulares */
@@ -52,14 +124,13 @@ body {
     .seccion {
         position: relative;
         top: 90px;
-        background-color: #82a3dae0;
+        background-color: #010a13c2;
         width: 100%;
         height: 130px;
         display: flex;
         justify-content: center;
 
     }
-
 
 
     .botonera {
@@ -75,6 +146,7 @@ body {
     #texto {
         align-self: start;
     }
+
 }
 
 

@@ -5,22 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    
     <link rel="stylesheet" href="./estilos/main.css">
 </head>
 
 <body>
-    <h1>League of legends Estadisticas</h1>
+    <div class="conh1">
+
+        <h1 class="h1">League of legends | Estadisticas | Skins | Informacion</h1>
+    </div>
     <main>
         <section class="seccion">
+            <div id="datos">
 
+            </div>
             <div class="contedor-form">
                 <form action="">
-                    <input type="text" id="texto">
-                    <input type="submit" id="boton" value="Buscar"></input>
+                    <input type="text" id="texto" class="input" placeholder="Sion...">
+                    <button id="boton" type="submit">Mostrar info. general</button>
                 </form>
                 <div class="botonera">
-                    <button>Mostrar stats</button>
-                    <button>Mostar </button>
+                    <button id="botonhab" type="submit">Mostrar Habilidades</button>
+                    <button id="botonskn">Mostar Skins</button>
+                    <button id="botonfullinfo">Mostar todas las estadisticas</button>
                 </div>
             </div>
 
@@ -28,12 +35,11 @@
         <div id="fotochamp"></div>
 
 
-
-
     </main>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script src="./script/main.js"></script>
 </body>
 
