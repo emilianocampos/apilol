@@ -6,200 +6,72 @@ let valor = input.value;
 const apiKey = 'RGAPI-bd02e23c-21ce-4cee-a7cd-19c256bc28bb';
 const nb = document.getElementById('botonhab');
 const botonSkin = document.getElementById('botonskn');
-function capitalizarPrimeraLetra(palabra) {
-	return palabra.charAt(0).toUpperCase() + palabra.slice(1).toLowerCase();
-}
+const fullInfo = document.getElementById('botonfullinfo');
+const nombresDeCampeones = [
+	"Aatrox", "Ahri", "Akali", "Akshan", "Alistar", "Amumu", "Anivia", "Annie", "Aphelios", "Ashe",
+	"AurelionSol", "Azir", "Bard", "Belveth", "Blitzcrank", "Brand", "Braum", "Briar", "Caitlyn",
+	"Camille", "Cassiopeia", "Chogath", "Corki", "Darius", "Diana", "Draven", "DrMundo", "Ekko",
+	"Elise", "Evelynn", "Ezreal", "Fiddlesticks", "Fiora", "Fizz", "Galio", "Gangplank", "Garen",
+	"Gnar", "Gragas", "Graves", "Gwen", "Hecarim", "Heimerdinger", "Hwei", "Illaoi", "Irelia",
+	"Ivern", "Janna", "JarvanIV", "Jax", "Jayce", "Jhin", "Jinx", "Kaisa", "Kalista", "Karma",
+	"Karthus", "Kassadin", "Katarina", "Kayle", "Kayn", "Kennen", "Khazix", "Kennen", "Kindred",
+	"Kled", "KogMaw", "KSante", "Leblanc", "LeeSin", "Leona", "Lillia", "Lissandra", "Lucian",
+	"Lulu", "Lux", "Malphite", "Malzahar", "Maokai", "MasterYi", "Milio", "MissFortune", "MonkeyKing",
+	"Mordekaiser", "Morgana", "Naafiri", "Nami", "Nasus", "Nautilus", "Neeko", "Nidalee", "Nilah",
+	"Nocturne", "Nunu", "Olaf", "Orianna", "Ornn", "Pantheon", "Poppy", "Pyke", "Qiyana", "Quinn",
+	"Rakan", "Rammus", "RekSai", "Rell", "Renata", "Rumble", "Ryze", "Samira", "Sejuani", "Senna",
+	"Seraphine", "Sett", "Shaco", "Shen", "Shyvana", "Singed", "Sion", "Sivir", "Skarner", "Smolder",
+	"Sona", "Soraka", "Swain", "Sylas", "Syndra", "TahmKench", "Taliyah", "Talon", "Taric", "Teemo",
+	"Thresh", "Tristana", "Trundle", "Tryndamere", "TwistedFate", "Twitch", "Udyr", "Urgot", "Varus",
+	"Vayne", "Veigar", "Velkoz", "Vex", "Vi", "Viego", "Viktor", "Vladimir", "Volibear", "Warwick",
+	"Xayah", "Xerath", "XinZhao", "Yasuo", "Yone", "Yorick", "Yuumi", "Zac", "Zed", "Zoe", "Zyra"
+];
+const separador = "|";
 
-let valorCapitalizado = capitalizarPrimeraLetra(valor);
+const nombresFormateados = nombresDeCampeones.map(nombre => `${separador}${nombre}${separador}`);
+setTimeout(() => {
+
+
+	Swal.fire({
+		title: "BIENVENIDO AL BUSCADOR DE LoL",
+		html: `<h2>Consulte la lista de campeones antes de comenzar, ya que se debe escribir de forma correcta el nombre del campeón que desea buscar(Primer letra en Mays)<h2> <p>Ejemplo: Sion<p> <p>Ejemplo: MissFortune<p>`,
+		showCancelButton: true,
+		cancelButtonText: "Cancelar",
+		confirmButtonText: "Lista de Campeones",
+	}).then((result) => {
+
+		if (result.isConfirmed) {
+
+			Swal.fire({
+				title: `${nombresFormateados}`,
+
+				icon: "info"
+			});
+		}
+	});
+
+
+}, 2000)
+
 function errorDeBusqueda() {
-	if (valorCapitalizado !== "Aatrox" &&
-		valorCapitalizado !== "Ahri" &&
-		valorCapitalizado !== "Akali" &&
-		valorCapitalizado !== "Akshan" &&
-		valorCapitalizado !== "Alistar" &&
-		valorCapitalizado !== "Amumu" &&
-		valorCapitalizado !== "Anivia" &&
-		valorCapitalizado !== "Annie" &&
-		valorCapitalizado !== "Aphelios" &&
-		valorCapitalizado !== "Ashe" &&
-		valorCapitalizado !== "AurelionSol" &&
-		valorCapitalizado !== "Azir" &&
-		valorCapitalizado !== "Bard" &&
-		valorCapitalizado !== "Belveth" &&
-		valorCapitalizado !== "Blitzcrank" &&
-		valorCapitalizado !== "Brand" &&
-		valorCapitalizado !== "Braum" &&
-		valorCapitalizado !== "Briar" &&
-		valorCapitalizado !== "Caitlyn" &&
-		valorCapitalizado !== "Camille" &&
-		valorCapitalizado !== "Cassiopeia" &&
-		valorCapitalizado !== "Chogath" &&
-		valorCapitalizado !== "Corki" &&
-		valorCapitalizado !== "Darius" &&
-		valorCapitalizado !== "Diana" &&
-		valorCapitalizado !== "Draven" &&
-		valorCapitalizado !== "DrMundo" &&
-		valorCapitalizado !== "Ekko" &&
-		valorCapitalizado !== "Elise" &&
-		valorCapitalizado !== "Evelynn" &&
-		valorCapitalizado !== "Ezreal" &&
-		valorCapitalizado !== "Fiddlesticks" &&
-		valorCapitalizado !== "Fiora" &&
-		valorCapitalizado !== "Fizz" &&
-		valorCapitalizado !== "Galio" &&
-		valorCapitalizado !== "Gangplank" &&
-		valorCapitalizado !== "Garen" &&
-		valorCapitalizado !== "Gnar" &&
-		valorCapitalizado !== "Gragas" &&
-		valorCapitalizado !== "Graves" &&
-		valorCapitalizado !== "Gwen" &&
-		valorCapitalizado !== "Hecarim" &&
-		valorCapitalizado !== "Heimerdinger" &&
-		valorCapitalizado !== "Hwei" &&
-		valorCapitalizado !== "Illaoi" &&
-		valorCapitalizado !== "Irelia" &&
-		valorCapitalizado !== "Ivern" &&
-		valorCapitalizado !== "Janna" &&
-		valorCapitalizado !== "JarvanIV" &&
-		valorCapitalizado !== "Jax" &&
-		valorCapitalizado !== "Jayce" &&
-		valorCapitalizado !== "Jhin" &&
-		valorCapitalizado !== "Jinx" &&
-		valorCapitalizado !== "Kaisa" &&
-		valorCapitalizado !== "Kalista" &&
-		valorCapitalizado !== "Karma" &&
-		valorCapitalizado !== "Karthus" &&
-		valorCapitalizado !== "Kassadin" &&
-		valorCapitalizado !== "Katarina" &&
-		valorCapitalizado !== "Kayle" &&
-		valorCapitalizado !== "Kayn" &&
-		valorCapitalizado !== "Kennen" &&
-		valorCapitalizado !== "Khazix" &&
-		valorCapitalizado !== "Kennen" &&
-		valorCapitalizado !== "Kindred" &&
-		valorCapitalizado !== "Kled" &&
-		valorCapitalizado !== "KogMaw" &&
-		valorCapitalizado !== "KSante" &&
-		valorCapitalizado !== "Leblanc" &&
-		valorCapitalizado !== "LeeSin" &&
-		valorCapitalizado !== "Leona" &&
-		valorCapitalizado !== "Lillia" &&
-		valorCapitalizado !== "Lissandra" &&
-		valorCapitalizado !== "Lucian" &&
-		valorCapitalizado !== "Lulu" &&
-		valorCapitalizado !== "Lux" &&
-		valorCapitalizado !== "Malphite" &&
-		valorCapitalizado !== "Malzahar" &&
-		valorCapitalizado !== "Maokai" &&
-		valorCapitalizado !== "MasterYi" &&
-		valorCapitalizado !== "Milio" &&
-		valorCapitalizado !== "MissFortune" &&
-		valorCapitalizado !== "MonkeyKing" &&
-		valorCapitalizado !== "Mordekaiser" &&
-		valorCapitalizado !== "Morgana" &&
-		valorCapitalizado !== "Naafiri" &&
-		valorCapitalizado !== "Nami" &&
-		valorCapitalizado !== "Nasus" &&
-		valorCapitalizado !== "Nautilus" &&
-		valorCapitalizado !== "Neeko" &&
-		valorCapitalizado !== "Nidalee" &&
-		valorCapitalizado !== "Nilah" &&
-		valorCapitalizado !== "Nocturne" &&
-		valorCapitalizado !== "Nunu" &&
-		valorCapitalizado !== "Olaf" &&
-		valorCapitalizado !== "Orianna" &&
-		valorCapitalizado !== "Ornn" &&
-		valorCapitalizado !== "Pantheon" &&
-		valorCapitalizado !== "Poppy" &&
-		valorCapitalizado !== "Pyke" &&
-		valorCapitalizado !== "Qiyana" &&
-		valorCapitalizado !== "Quinn" &&
-		valorCapitalizado !== "Rakan" &&
-		valorCapitalizado !== "Rammus" &&
-		valorCapitalizado !== "RekSai" &&
-		valorCapitalizado !== "Rell" &&
-		valorCapitalizado !== "Renata" &&
-		valorCapitalizado !== "Rumble" &&
-		valorCapitalizado !== "Ryze" &&
-		valorCapitalizado !== "Samira" &&
-		valorCapitalizado !== "Sejuani" &&
-		valorCapitalizado !== "Senna" &&
-		valorCapitalizado !== "Seraphine" &&
-		valorCapitalizado !== "Sett" &&
-		valorCapitalizado !== "Shaco" &&
-		valorCapitalizado !== "Shen" &&
-		valorCapitalizado !== "Shyvana" &&
-		valorCapitalizado !== "Singed" &&
-		valorCapitalizado !== "Sion" &&
-		valorCapitalizado !== "Sivir" &&
-		valorCapitalizado !== "Skarner" &&
-		valorCapitalizado !== "Smolder" &&
-		valorCapitalizado !== "Sona" &&
-		valorCapitalizado !== "Soraka" &&
-		valorCapitalizado !== "Swain" &&
-		valorCapitalizado !== "Sylas" &&
-		valorCapitalizado !== "Syndra" &&
-		valorCapitalizado !== "TahmKench" &&
-		valorCapitalizado !== "Taliyah" &&
-		valorCapitalizado !== "Talon" &&
-		valorCapitalizado !== "Taric" &&
-		valorCapitalizado !== "Teemo" &&
-		valorCapitalizado !== "Thresh" &&
-		valorCapitalizado !== "Tristana" &&
-		valorCapitalizado !== "Trundle" &&
-		valorCapitalizado !== "Tryndamere" &&
-		valorCapitalizado !== "TwistedFate" &&
-		valorCapitalizado !== "Twitch" &&
-		valorCapitalizado !== "Udyr" &&
-		valorCapitalizado !== "Urgot" &&
-		valorCapitalizado !== "Varus" &&
-		valorCapitalizado !== "Vayne" &&
-		valorCapitalizado !== "Veigar" &&
-		valorCapitalizado !== "Velkoz" &&
-		valorCapitalizado !== "Vex" &&
-		valorCapitalizado !== "Vi" &&
-		valorCapitalizado !== "Udyr" &&
-		valorCapitalizado !== "Tristana" &&
-		valorCapitalizado !== "Trundle" &&
-		valorCapitalizado !== "Tryndamere" &&
-		valorCapitalizado !== "TwistedFate" &&
-		valorCapitalizado !== "Twitch" &&
-		valorCapitalizado !== "Udyr" &&
-		valorCapitalizado !== "Urgot" &&
-		valorCapitalizado !== "Varus" &&
-		valorCapitalizado !== "Vayne" &&
-		valorCapitalizado !== "Veigar" &&
-		valorCapitalizado !== "Velkoz" &&
-		valorCapitalizado !== "Vex" &&
-		valorCapitalizado !== "Vi" &&
-		valorCapitalizado !== "Udyr" &&
-		valorCapitalizado !== "Viego" &&
-		valorCapitalizado !== "Viktor" &&
-		valorCapitalizado !== "Vladimir" &&
-		valorCapitalizado !== "Volibear" &&
-		valorCapitalizado !== "Warwick" &&
-		valorCapitalizado !== "Xayah" &&
-		valorCapitalizado !== "Xerath" &&
-		valorCapitalizado !== "XinZhao" &&
-		valorCapitalizado !== "Yasuo" &&
-		valorCapitalizado !== "Yone" &&
-		valorCapitalizado !== "Yorick" &&
-		valorCapitalizado !== "Yuumi" &&
-		valorCapitalizado !== "Zac" &&
-		valorCapitalizado !== "Zed" &&
-		valorCapitalizado !== "Zoe" &&
-		valorCapitalizado !== "Zyra"
-
-	) {
-
+	if (!nombresDeCampeones.includes(valor)) {
 		Swal.fire({
 			icon: "error",
-			title: "No se encontro el campeon"
-			,
-			text: "No se encontro el campeon",
-			footer: '<a href="#">Why do I have this issue?</a>'
-		});
+			title: "No se encontró el campeón",
 
+			cancelButtonText: "Cancelar",
+			confirmButtonText: "Lista de Campeones",
+		}).then((result) => {
+
+			if (result.isConfirmed) {
+
+				Swal.fire({
+					title: `${nombresFormateados}`,
+
+					icon: "info"
+				});
+			}
+		});
 	}
 }
 const url = 'https://ddragon.leagueoflegends.com/cdn/14.6.1/data/es_ES/champion.json';
@@ -223,7 +95,7 @@ fetch(url, {
 		boton.addEventListener('click', (e) => {
 			e.preventDefault();
 			valor = input.value;
-			valorCapitalizado = capitalizarPrimeraLetra(valor);
+
 
 
 			errorDeBusqueda();
@@ -232,17 +104,17 @@ fetch(url, {
 
 
 			Swal.fire({
-				title: `${datae.data[valorCapitalizado].id}`,
+				title: `${datae.data[valor].id}`,
 
 
-				html: `<p> ${datae.data[valorCapitalizado].title}  </p> <div id="star-rating">Dificultad: </div> <canvas id="myChart"></canvas> `,
+				html: `<p> ${datae.data[valor].title}  </p> <div id="star-rating">Dificultad: </div> <canvas id="myChart"></canvas> `,
 				didOpen: function () {
 					//backg
 
 
 					//estrellas
 					const container = document.getElementById("star-rating");
-					let rating = datae.data[valorCapitalizado].info.difficulty; // Este es el valor numérico del 1 al 10 que deseas mostrar como estrellas
+					let rating = datae.data[valor].info.difficulty; // Este es el valor numérico del 1 al 10 que deseas mostrar como estrellas
 
 					for (let i = 1; i <= 10; i++) {
 						const star = document.createElement("span");
@@ -254,9 +126,9 @@ fetch(url, {
 						container.appendChild(star);
 					}
 					//grafico
-					const ataque = datae.data[valorCapitalizado].info.attack;
-					const defensa = datae.data[valorCapitalizado].info.defense;
-					const magia = datae.data[valorCapitalizado].info.magic;
+					const ataque = datae.data[valor].info.attack;
+					const defensa = datae.data[valor].info.defense;
+					const magia = datae.data[valor].info.magic;
 					const ctx = document.getElementById('myChart').getContext('2d');
 					new Chart(ctx, {
 						type: 'line',
@@ -284,7 +156,7 @@ fetch(url, {
 					});
 
 				},
-				imageUrl: `https://ddragon.leagueoflegends.com/cdn/14.6.1/img/champion/${valorCapitalizado}.png`,
+				imageUrl: `https://ddragon.leagueoflegends.com/cdn/14.6.1/img/champion/${valor}.png`,
 				confirmButtonText: 'Cerrar',
 
 				confirmButtonColor: '#3085d6'
@@ -295,28 +167,15 @@ fetch(url, {
 		});
 	});
 
-/*
-				Swal.fire({
-					title: `${datae.data[valorCapitalizado].id}`,
-					text: ` ataque: ${datae.data[valorCapitalizado].info.attack}`,
-					imageUrl: `https://ddragon.leagueoflegends.com/cdn/14.6.1/img/champion/${valorCapitalizado}.png`,
-					imageWidth: 100,
-					imageHeight: 100,
-					imageAlt: `${valorCapitalizado}`,
-	
-					confirmButtonText: 'Botón de Confirmar',
-					confirmButtonColor: '#3085d6',
-				});
-	
-				*/
+
 
 
 nb.addEventListener('click', (e) => {
 	e.preventDefault();
 	valor = input.value;
-	valorCapitalizado = capitalizarPrimeraLetra(valor);
+
 	errorDeBusqueda();
-	const urlsa = `https://ddragon.leagueoflegends.com/cdn/14.6.1/data/es_ES/champion/${valorCapitalizado}.json`;
+	const urlsa = `https://ddragon.leagueoflegends.com/cdn/14.6.1/data/es_ES/champion/${valor}.json`;
 	fetch(urlsa, {
 		'Authorization': `Bearer ${apiKey}`
 	})
@@ -333,11 +192,11 @@ nb.addEventListener('click', (e) => {
 			let currentSpellIndex = -1; // Índice del hechizo actual
 
 			function showNextSpell() {
-				currentSpellIndex = (currentSpellIndex + 1) % data.data[valorCapitalizado].spells.length;
+				currentSpellIndex = (currentSpellIndex + 1) % data.data[valor].spells.length;
 				// Actualizar el contenido HTML del modal con el nuevo hechizo
-				let urlFoto = `https://ddragon.leagueoflegends.com/cdn/14.6.1/img/spell/${data.data[valorCapitalizado].spells[currentSpellIndex].image.full}`;
+				let urlFoto = `https://ddragon.leagueoflegends.com/cdn/14.6.1/img/spell/${data.data[valor].spells[currentSpellIndex].image.full}`;
 				Swal.update({
-					html: `<img src=${urlFoto}><p>${data.data[valorCapitalizado].spells[currentSpellIndex].id}: ${data.data[valorCapitalizado].spells[currentSpellIndex].description} </p><button id="btnNextSpell">Siguiente Hechizo</button>`,
+					html: `<img src=${urlFoto}><p>${data.data[valor].spells[currentSpellIndex].id}: ${data.data[valor].spells[currentSpellIndex].description} </p><button id="btnNextSpell">Siguiente Hechizo</button>`,
 
 				});
 
@@ -348,8 +207,8 @@ nb.addEventListener('click', (e) => {
 
 			Swal.fire({
 
-				title: `${data.data[valorCapitalizado].id}`,
-				imageUrl: `https://ddragon.leagueoflegends.com/cdn/14.6.1/img/champion/${valorCapitalizado}.png`,
+				title: `${data.data[valor].id}`,
+				imageUrl: `https://ddragon.leagueoflegends.com/cdn/14.6.1/img/champion/${valor}.png`,
 				html: ` <button id="btnNextSpell">Mostrar habilidades</button>`,
 
 				confirmButtonText: 'Cerrar',
@@ -373,12 +232,12 @@ nb.addEventListener('click', (e) => {
 botonSkin.addEventListener('click', (e) => {
 	e.preventDefault();
 	valor = input.value;
-	valorCapitalizado = capitalizarPrimeraLetra(valor);
+
 	errorDeBusqueda();
 	let numSkin = 0;
 
 	function mostrarSkin(num) {
-		const imageUrl = `https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${valorCapitalizado}_${num}.jpg`;
+		const imageUrl = `https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${valor}_${num}.jpg`;
 
 		// Verificar si la imagen está disponible
 		fetch(imageUrl)
@@ -411,3 +270,80 @@ botonSkin.addEventListener('click', (e) => {
 
 	mostrarSkin(numSkin); // Muestra la primera skin al abrir el modal
 });
+
+fullInfo.addEventListener('click', (e) => {
+	e.preventDefault();
+	valor = input.value;
+
+	errorDeBusqueda();
+
+	const urlsc = `https://ddragon.leagueoflegends.com/cdn/14.6.1/data/es_ES/champion/${valor}.json`;
+	fetch(urlsc, {
+		'Authorization': `Bearer ${apiKey}`
+	})
+		.then(response => {
+			if (!response.ok) {
+				throw new Error('F');
+
+			}
+			return response.json();
+
+		})
+
+		.then(data => {
+
+			Swal.fire({
+				title: `${data.data[valor].id}`,
+				imageUrl: `https://ddragon.leagueoflegends.com/cdn/14.6.1/img/champion/${valor}.png`,
+
+				html: `<h2>Tips de uso: </h2><p>  ${data.data[valor].allytips} </p> <h2>Tips para enemigos: </h2><p> ${data.data[valor].enemytips} </p> <canvas id="myCharts"></canvas> `,
+				didOpen() {
+					const vida = data.data[valor].stats.hp;
+					const velMov = data.data[valor].stats.movespeed;
+					const armadura = data.data[valor].stats.armor;
+					const dañoAtaque = data.data[valor].stats.attackdamage;
+					const dañoMagia = data.data[valor].stats.mp;
+					console.log(vida)
+					const ctxsa = document.getElementById('myCharts').getContext('2d');
+					new Chart(ctxsa, {
+						type: 'line',
+						data: {
+							labels: ['Vida', 'Velocidad de movimiento ', 'Armadura', 'Daño de ataque', 'Daño magico'],
+							datasets: [{
+								label: 'Valores iniciales',
+								data: [vida, velMov, armadura, dañoAtaque, dañoMagia],
+								fill: false,
+								tension: 0.1
+							}]
+						},
+						options: {
+
+							scales: {
+								y: {
+									beginAtZero: true,
+
+									max: 1000
+								}
+							},
+							animations: {
+								tension: {
+									duration: 1000,
+									easing: 'linear',
+									from: 1,
+									to: 0,
+									loop: true
+								}
+							},
+						}
+					});
+				}
+			})
+
+
+
+		})
+
+
+
+
+})

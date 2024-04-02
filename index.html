@@ -5,29 +5,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    
+    <link rel="stylesheet" href="http://anijs.github.io/lib/anicollection/anicollection.css">
     <link rel="stylesheet" href="./estilos/main.css">
 </head>
 
 <body>
     <div class="conh1">
 
-        <h1 class="h1">League of legends | Estadisticas | Skins | Informacion</h1>
+        <h1 class="h1 ">League of Legends | Estadisticas | Skins | Información</h1>
     </div>
     <main>
         <section class="seccion">
             <div id="datos">
 
             </div>
-            <div class="contedor-form">
+            <div class="contedor-form ">
+
                 <form action="">
-                    <input type="text" id="texto" class="input" placeholder="Sion...">
-                    <button id="boton" type="submit">Mostrar info. general</button>
+                    <div class="form-control">
+
+
+
+                        <input type="text" id="texto" class="input input-alt pulse animated">
+                        <span class="input-border input-border-alt"></span>
+                    </div>
                 </form>
-                <div class="botonera">
+                <div class="botonera ">
+                    <button id="boton" type="submit" >Mostrar info. general</button>
                     <button id="botonhab" type="submit">Mostrar Habilidades</button>
                     <button id="botonskn">Mostar Skins</button>
-                    <button id="botonfullinfo">Mostar todas las estadisticas</button>
+                    <button id="botonfullinfo">Tips y mas</button>
                 </div>
             </div>
 
@@ -39,7 +46,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+    <script src="anijs-min.js"></script>
     <script src="./script/main.js"></script>
 </body>
 
