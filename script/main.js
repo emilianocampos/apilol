@@ -27,7 +27,9 @@ const nombresDeCampeones = [
 	"Xayah", "Xerath", "XinZhao", "Yasuo", "Yone", "Yorick", "Yuumi", "Zac", "Zed", "Zoe", "Zyra"
 ];
 const separador = "|";
-
+var typed = new Typed('#typed', {
+    stringsElement: '#typed-strings'
+  });
 const nombresFormateados = nombresDeCampeones.map(nombre => `${separador}${nombre}${separador}`);
 setTimeout(() => {
 
@@ -51,7 +53,7 @@ setTimeout(() => {
 	});
 
 
-}, 2000)
+}, 3000)
 
 function errorDeBusqueda() {
 	if (!nombresDeCampeones.includes(valor)) {

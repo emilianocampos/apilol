@@ -40,19 +40,25 @@ h2 {
     text-align: center;
     text-shadow: 2px 4px 4px#C89B3C;
     font-weight: 900 !important;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: 'Lol' !important;
     color: #C8AA6E;
     -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 10px 10px 5px 0px #000000;
 
 }
-
+#typed{
+    font-size: 2rem;
+}
 .star {
     font-size: 24px;
     color: #ccc;
 }
+.typed-cursor.typed-cursor--blink{
+position: relative;
+top: 12px;
 
+}
 .star.active {
     color: #ffbf00;
 }
