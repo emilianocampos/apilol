@@ -28,7 +28,8 @@ const nombresDeCampeones = [
 ];
 const separador = "|";
 var typed = new Typed('#typed', {
-    stringsElement: '#typed-strings'
+    stringsElement: '#typed-strings',
+	typeSpeed: 20
   });
 const nombresFormateados = nombresDeCampeones.map(nombre => `${separador}${nombre}${separador}`);
 setTimeout(() => {
