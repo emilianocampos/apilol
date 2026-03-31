@@ -26,56 +26,74 @@ const nombresDeCampeones = [
 	"Vayne", "Veigar", "Velkoz", "Vex", "Vi", "Viego", "Viktor", "Vladimir", "Volibear", "Warwick",
 	"Xayah", "Xerath", "XinZhao", "Yasuo", "Yone", "Yorick", "Yuumi", "Zac", "Zed", "Zoe", "Zyra"
 ];
-const separador = "|";
-var typed = new Typed('#typed', {
-    stringsElement: '#typed-strings',
-	typeSpeed: 20
-  });
-const nombresFormateados = nombresDeCampeones.map(nombre => `${separador}${nombre}${separador}`);
-setTimeout(() => {
+// Mensaje de bienvenida inicial
+function mostrarMensajeBienvenida() {
+	setTimeout(() => {
+		Swal.fire({
+			title: "BIENVENIDO AL EXPLORADOR DE LoL",
+			html: `<p>Descubre estadísticas, habilidades y skins de tus campeones favoritos.</p>
+                   <p style="margin-top:10px; font-size: 0.9rem; color: #C89B3C;">RECUERDA: Escribe el nombre correctamente (Ej: MissFortune, Aatrox)</p>`,
+			showCancelButton: true,
+			cancelButtonText: "Cerrar",
+			confirmButtonText: "Ver Lista de Campeones",
+			confirmButtonColor: '#005A82'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				mostrarLista();
+			}
+		});
+	}, 1000);
+}
 
+// Función para mostrar la lista de campeones de forma visual e intuitiva
+function mostrarLista() {
+	const grid = document.createElement('div');
+	grid.className = 'champion-grid';
 
-	Swal.fire({
-		title: "BIENVENIDO AL BUSCADOR DE LoL",
-		html: `<h2>Consulte la lista de campeones antes de comenzar, ya que se debe escribir de forma correcta el nombre del campeón que desea buscar(Primer letra en Mays)<h2> <p>Ejemplo: Sion<p> <p>Ejemplo: MissFortune<p>`,
-		showCancelButton: true,
-		cancelButtonText: "Cancelar",
-		confirmButtonText: "Lista de Campeones",
-	}).then((result) => {
-
-		if (result.isConfirmed) {
-
-			Swal.fire({
-				title: `${nombresFormateados}`,
-
-				icon: "info"
-			});
-		}
+	nombresDeCampeones.forEach(nombre => {
+		const item = document.createElement('div');
+		item.className = 'champion-item';
+		item.innerHTML = `
+            <img src="https://ddragon.leagueoflegends.com/cdn/14.6.1/img/champion/${nombre}.png" alt="${nombre}" onerror="this.src='https://via.placeholder.com/60/0a1428/c89b3c?text=?';">
+            <span>${nombre}</span>
+        `;
+		item.addEventListener('click', () => {
+			input.value = nombre;
+			Swal.close();
+			// Pequeño delay para que se vea el cambio en el input antes de la búsqueda
+			setTimeout(() => boton.click(), 100);
+		});
+		grid.appendChild(item);
 	});
 
-
-}, 3000)
+	Swal.fire({
+		title: 'SELECCIONA UN CAMPEÓN',
+		html: grid,
+		showConfirmButton: false,
+		width: window.innerWidth > 768 ? '80%' : '95%',
+		customClass: {
+			popup: 'modern-swal-popup'
+		}
+	});
+}
 
 function errorDeBusqueda() {
 	if (!nombresDeCampeones.includes(valor)) {
 		Swal.fire({
 			icon: "error",
 			title: "No se encontró el campeón",
-
+			text: "Asegúrate de escribirlo correctamente o búscalo en la lista.",
+			showCancelButton: true,
 			cancelButtonText: "Cancelar",
-			confirmButtonText: "Lista de Campeones",
+			confirmButtonText: "Ver Lista de Campeones",
 		}).then((result) => {
-
 			if (result.isConfirmed) {
-
-				Swal.fire({
-					title: `${nombresFormateados}`,
-
-					icon: "info"
-				});
+				mostrarLista();
 			}
 		});
+		return true;
 	}
+	return false;
 }
 const url = 'https://ddragon.leagueoflegends.com/cdn/14.6.1/data/es_ES/champion.json';
 
@@ -83,25 +101,44 @@ const url = 'https://ddragon.leagueoflegends.com/cdn/14.6.1/data/es_ES/champion.
 fetch(url, {
 	'Authorization': `Bearer ${apiKey}`
 })
-
 	.then(response => {
 		if (!response.ok) {
 			throw new Error('F');
-
 		}
 		return response.json();
-
 	})
 	.then(datae => {
+		// Ocultar loader cuando los datos básicos están listos
+		const loader = document.getElementById('loader');
+		if (loader) {
+			loader.classList.add('loader-hidden');
+		}
 
+		mostrarMensajeBienvenida();
+
+
+		// Manejar el submit del formulario para que funcione con la tecla Enter
+		const searchForm = document.getElementById('search-form');
+		if (searchForm) {
+			searchForm.addEventListener('submit', (e) => {
+				e.preventDefault();
+				boton.click();
+			});
+		}
+
+		// Botón ver lista en la pantalla principal
+		const btnShowList = document.getElementById('btn-show-list');
+		if (btnShowList) {
+			btnShowList.addEventListener('click', () => {
+				mostrarLista();
+			});
+		}
 
 		boton.addEventListener('click', (e) => {
 			e.preventDefault();
-			valor = input.value;
+			valor = input.value.trim(); // Trim whitespace
 
-
-
-			errorDeBusqueda();
+			if (errorDeBusqueda()) return;
 
 
 
@@ -132,28 +169,38 @@ fetch(url, {
 					const ataque = datae.data[valor].info.attack;
 					const defensa = datae.data[valor].info.defense;
 					const magia = datae.data[valor].info.magic;
+					const dificultad = datae.data[valor].info.difficulty;
 					const ctx = document.getElementById('myChart').getContext('2d');
+
 					new Chart(ctx, {
-						type: 'line',
+						type: 'radar',
 						data: {
-							labels: ['ataque', 'defensa', 'magia'],
+							labels: ['Ataque', 'Defensa', 'Magia', 'Dificultad'],
 							datasets: [{
-								label: 'Estadisticas generales',
-								data: [ataque, defensa, magia],
-								fill: false,
-								borderColor: 'rgb(75, 192, 192)',
-								tension: 0.1
-
-
+								label: 'Atributos del Campeón',
+								data: [ataque, defensa, magia, dificultad],
+								fill: true,
+								backgroundColor: 'rgba(10, 200, 185, 0.2)',
+								borderColor: '#0AC8B9',
+								pointBackgroundColor: '#C89B3C',
+								pointBorderColor: '#fff',
+								pointHoverBackgroundColor: '#fff',
+								pointHoverBorderColor: '#0AC8B9'
 							}]
 						},
 						options: {
 							scales: {
-								y: {
-									beginAtZero: true,
-									stepSize: 12,
-									max: 10
+								r: {
+									angleLines: { color: 'rgba(200, 155, 60, 0.2)' },
+									grid: { color: 'rgba(200, 155, 60, 0.2)' },
+									pointLabels: { color: '#C8AA6E', font: { size: 12, family: 'Lol' } },
+									ticks: { display: false },
+									suggestedMin: 0,
+									suggestedMax: 10
 								}
+							},
+							plugins: {
+								legend: { display: false }
 							}
 						}
 					});
@@ -161,9 +208,7 @@ fetch(url, {
 				},
 				imageUrl: `https://ddragon.leagueoflegends.com/cdn/14.6.1/img/champion/${valor}.png`,
 				confirmButtonText: 'Cerrar',
-
-				confirmButtonColor: '#3085d6'
-
+				confirmButtonColor: '#005A82'
 			});
 
 
@@ -175,9 +220,9 @@ fetch(url, {
 
 nb.addEventListener('click', (e) => {
 	e.preventDefault();
-	valor = input.value;
+	valor = input.value.trim();
 
-	errorDeBusqueda();
+	if (errorDeBusqueda()) return;
 	const urlsa = `https://ddragon.leagueoflegends.com/cdn/14.6.1/data/es_ES/champion/${valor}.json`;
 	fetch(urlsa, {
 		'Authorization': `Bearer ${apiKey}`
@@ -199,7 +244,11 @@ nb.addEventListener('click', (e) => {
 				// Actualizar el contenido HTML del modal con el nuevo hechizo
 				let urlFoto = `https://ddragon.leagueoflegends.com/cdn/14.6.1/img/spell/${data.data[valor].spells[currentSpellIndex].image.full}`;
 				Swal.update({
-					html: `<img src=${urlFoto}><p>${data.data[valor].spells[currentSpellIndex].id}: ${data.data[valor].spells[currentSpellIndex].description} </p><button id="btnNextSpell">Siguiente Hechizo</button>`,
+					html: `<div class="modal-btn-container">
+                                <img src=${urlFoto} class="modal-spell-img">
+                                <p class="modal-spell-desc"><strong>${data.data[valor].spells[currentSpellIndex].name}</strong>: ${data.data[valor].spells[currentSpellIndex].description}</p>
+                                <button id="btnNextSpell">Siguiente Habilidad</button>
+                           </div>`,
 
 				});
 
@@ -209,10 +258,11 @@ nb.addEventListener('click', (e) => {
 
 
 			Swal.fire({
-
 				title: `${data.data[valor].id}`,
 				imageUrl: `https://ddragon.leagueoflegends.com/cdn/14.6.1/img/champion/${valor}.png`,
-				html: ` <button id="btnNextSpell">Mostrar habilidades</button>`,
+				html: `<div class="modal-btn-container">
+                            <button id="btnNextSpell">Ver habilidades</button>
+                       </div>`,
 
 				confirmButtonText: 'Cerrar',
 				willClose: () => {
@@ -234,9 +284,9 @@ nb.addEventListener('click', (e) => {
 })
 botonSkin.addEventListener('click', (e) => {
 	e.preventDefault();
-	valor = input.value;
+	valor = input.value.trim();
 
-	errorDeBusqueda();
+	if (errorDeBusqueda()) return;
 	let numSkin = 0;
 
 	function mostrarSkin(num) {
@@ -276,9 +326,9 @@ botonSkin.addEventListener('click', (e) => {
 
 fullInfo.addEventListener('click', (e) => {
 	e.preventDefault();
-	valor = input.value;
+	valor = input.value.trim();
 
-	errorDeBusqueda();
+	if (errorDeBusqueda()) return;
 
 	const urlsc = `https://ddragon.leagueoflegends.com/cdn/14.6.1/data/es_ES/champion/${valor}.json`;
 	fetch(urlsc, {
@@ -309,34 +359,47 @@ fullInfo.addEventListener('click', (e) => {
 					console.log(vida)
 					const ctxsa = document.getElementById('myCharts').getContext('2d');
 					new Chart(ctxsa, {
-						type: 'line',
+						type: 'bar',
 						data: {
-							labels: ['Vida', 'Velocidad de movimiento ', 'Armadura', 'Daño de ataque', 'Daño magico'],
+							labels: ['Vida', 'Vel. Movimiento', 'Armadura', 'Daño Ataque', 'Maná/Rec'],
 							datasets: [{
-								label: 'Valores iniciales',
+								label: 'Valores Iniciales',
 								data: [vida, velMov, armadura, dañoAtaque, dañoMagia],
-								fill: false,
-								tension: 0.1
+								backgroundColor: [
+									'rgba(10, 200, 185, 0.6)',
+									'rgba(0, 90, 130, 0.6)',
+									'rgba(200, 155, 60, 0.6)',
+									'rgba(200, 170, 110, 0.6)',
+									'rgba(75, 192, 192, 0.6)'
+								],
+								borderColor: [
+									'#0AC8B9',
+									'#005A82',
+									'#C89B3C',
+									'#C8AA6E',
+									'#4bc0c0'
+								],
+								borderWidth: 1,
+								borderRadius: 5
 							}]
 						},
 						options: {
-
+							indexAxis: 'y',
+							responsive: true,
 							scales: {
-								y: {
+								x: {
 									beginAtZero: true,
-
-									max: 1000
+									grid: { color: 'rgba(200, 155, 60, 0.1)' },
+									ticks: { color: '#C8AA6E' }
+								},
+								y: {
+									grid: { display: false },
+									ticks: { color: '#fff', font: { family: 'Lol' } }
 								}
 							},
-							animations: {
-								tension: {
-									duration: 1000,
-									easing: 'linear',
-									from: 1,
-									to: 0,
-									loop: true
-								}
-							},
+							plugins: {
+								legend: { display: false }
+							}
 						}
 					});
 				}
